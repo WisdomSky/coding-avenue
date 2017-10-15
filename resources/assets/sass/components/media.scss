@@ -1,0 +1,13 @@
+.media {
+    font-size: 15px;
+    margin-top: 15px;
+    &:first-child {
+      margin-top: 0;
+    }
+    .media-heading {
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-weight: normal;
+      font-size: 16px;
+    }
+}

@@ -1,0 +1,22 @@
+ul.vue-router {
+  li.el-menu-item {
+    background-color: transparent !important;
+    height: inherit !important;
+    line-height: 0 !important;
+    a.router-link-exact-active {
+      color: $vp-color-light;
+      text-shadow: 1px 2px 0px $vp-color-gray;
+    }
+    a {
+      display: block;
+    }
+  }
+}
+
+a.el-menu-item,
+a.el-menu-item:hover,
+li.el-menu-item,
+div.el-submenu__title {
+  border-bottom: none !important;
+  background: transparent !important;
+}

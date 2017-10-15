@@ -1,0 +1,6 @@
+.el-alert {
+  border-radius: 0 !important;
+  .el-alert__title {
+    line-height: $default-line-height !important;
+  }
+}

@@ -1,0 +1,43 @@
+$vp-primary-color: #f77;
+$vp-secondary-color: #939393;
+$vp-primary-bg-color: #EDF0F5;
+
+
+$vp-color-light: #fff;
+$vp-color-gray: #767676;
+$vp-color-blue: #20a0ff;
+$vp-color-light-gray: #e3e3e3;
+
+
+$vp-color-info: #20A1FF;
+$vp-color-warn: #F7BA2A;
+$vp-color-danger: #FF4949;
+$vp-color-success: #13CE66;
+
+
+$default-line-height: 1.15;
+
+
+@mixin fontFamilyPoppins {
+  font-family: 'Poppins', sans-serif !important;
+}
+
+@mixin fontFamilyElement {
+  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif !important;
+}
+
+
+@mixin placeholderColor($color) {
+  &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: $color;
+  }
+  &::-moz-placeholder { /* Firefox 19+ */
+    color: $color;
+  }
+  &:-ms-input-placeholder { /* IE 10+ */
+    color: $color;
+  }
+  &:-moz-placeholder { /* Firefox 18- */
+    color: $color;
+  }
+}

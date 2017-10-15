@@ -1,0 +1,109 @@
+
+// Fonts
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600|Poppins:300,400,500,600,700);
+
+// Variables
+@import "variables";
+
+// Utilities
+@import "utilities";
+
+
+@import "node_modules/font-awesome/scss/font-awesome";
+@import "node_modules/normalize.css/normalize";
+
+
+// Components
+@import "components/button";
+@import "components/form";
+@import "components/menu";
+@import "components/auth";
+@import "components/alert";
+@import "components/media";
+@import "components/table";
+@import "components/tab";
+@import "components/loading";
+@import "components/notification";
+
+
+
+/**
+ * Extend Element-UI functionality to support font-awesome
+ */
+i[class*=" el-icon-fa-"],
+i[class^="el-icon-fa-"] {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font: normal normal normal 14px/1 FontAwesome !important;
+
+  &:before {
+    vertical-align: middle;
+  }
+
+}
+
+html,
+body,
+#app {
+  height: 100%;
+}
+
+body {
+  @include fontFamilyPoppins;
+  color: $vp-color-gray;
+  background: $vp-primary-bg-color;
+  font-size: 14px;
+}
+
+.border,
+.border-top,
+.border-right,
+.border-bottom,
+.border-left {
+  color: $vp-color-gray;
+}
+
+
+
+.alert-no-close {
+  .el-message-box__close {
+    display: none;
+  }
+}
+
+.text-danger {
+ color: $vp-color-danger;
+}
+.text-info {
+ color: $vp-color-info;
+}
+.text-warn {
+ color: $vp-color-warn;
+}
+.text-success {
+ color: $vp-color-success;
+}
+
+.text-ghost {
+ color: #ccc;
+}
+
+.color-primary {
+  color: $vp-primary-color !important;
+}
+
+.bg-color-primary {
+  background-color: $vp-primary-color !important;
+}
+
+.color-primary-light {
+  color: lighten($vp-primary-color, 10%) !important;
+}
+
+.bg-color-primary-light {
+  background-color: lighten($vp-primary-color, 10%) !important;
+}

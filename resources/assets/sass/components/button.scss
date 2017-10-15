@@ -1,0 +1,39 @@
+.el-button {
+  border-radius: 0 !important;
+  &.el-button--primary {
+    background: $vp-primary-color;
+    border-color: $vp-primary-color;
+
+    &:focus, &:hover {
+      background: darken($vp-primary-color, 5);
+      border-color: darken($vp-primary-color, 5);
+    }
+
+  }
+}
+
+.el-button--success,
+.el-checkbox__input {
+  &.is-checked .el-checkbox__inner {
+    color: #fff;
+    background-color: $vp-primary-color !important;
+    border-color: $vp-primary-color !important;;
+  }
+
+  &.is-focus {
+    .el-checkbox__inner {
+      border-color: $vp-primary-color !important;
+    }
+  }
+
+  .el-checkbox__inner {
+
+    &:focus, &:hover {
+      border-color: $vp-primary-color;
+    }
+  }
+}
+
+.btn-block {
+  width: 100%;
+}

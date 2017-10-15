@@ -1,0 +1,36 @@
+form {
+  .help-block {
+    font-size: 12px;
+    display: block;
+    margin-top: 10px;
+    line-height: 1.15;
+  }
+}
+
+input.el-input__inner {
+  @include placeholderColor($vp-color-light-gray);
+  border-radius: 0;
+  height: 40px;
+  &:focus {
+    border-color: $vp-primary-color;
+  }
+}
+.el-form-item__label {
+  color: $vp-color-gray !important;
+}
+
+.el-checkbox__inner {
+  border-radius: 0 !important;
+  width: 22px !important;
+  height: 22px !important;
+
+  &::after {
+    left: 7px !important;
+    top: 3px !important;
+  }
+}
+
+.el-checkbox__label {
+  color: $vp-secondary-color !important;
+  padding-left: 18px !important;
+}

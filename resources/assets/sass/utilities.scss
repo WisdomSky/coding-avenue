@@ -1,0 +1,48 @@
+.tdn {
+  text-decoration: none !important;
+}
+.text-primary {
+  color: $vp-color-info;
+}
+.text-info {
+  color: $vp-color-info;
+}
+.text-warn {
+  color: $vp-color-warn;
+}
+.text-danger {
+  color: $vp-color-danger;
+}
+.text-success {
+  color: $vp-color-success;
+}
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
+.text-center {
+  text-align: center;
+}
+
+.text-light {
+  color: $vp-color-light;
+}
+
+.px0 {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.no-shadow {
+  text-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.no-border {
+  border: 0 !important;
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+  border-radius: 0 !important;
+}
