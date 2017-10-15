@@ -1,51 +1,98 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+## Codave Blog
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+A very very very simple blogging platform powered by Laravel and VueJS integrated with Google Sign-in as main way of authentication. Goodbye registration form!
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+## Installation
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+#### 1.) Clone the repository
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb combination of simplicity, elegance, and innovation give you tools you need to build any application with which you are tasked.
+    git clone https://github.com/WisdomSky/coding-avenue.git
+     
+#### 2.) Go to the project directory
 
-## Learning Laravel
+    cd coding-avenue
+    
+#### 3.) Install Composer and NPM dependencies
 
-Laravel has the most extensive and thorough documentation and video tutorial library of any modern web application framework. The [Laravel documentation](https://laravel.com/docs) is thorough, complete, and makes it a breeze to get started learning the framework.
+    composer install
+    npm install
+    
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 900 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+*NOTE: If you don't have composer and npm installed, you can go to the respectively links below for instructions on how to install them.*
 
-## Laravel Sponsors
+Composer - [https://getcomposer.org/](https://getcomposer.org/)
 
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](http://patreon.com/taylorotwell):
+NodeJS/NPM - [https://nodejs.org/en/](https://nodejs.org/en/)
 
-- **[Vehikl](http://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Styde](https://styde.net)**
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
+#### 4.) Configure the `.env` file
 
-## Contributing
+At the root of the project directory, you will find a file `.env`, but if not, you can copy `.env.example` and name it to `.env`. 
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+You need to fill-in the **database credentials** in order for the application to work properly.
 
-## Security Vulnerabilities
+e.g
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=coding-avenue
+    DB_USERNAME=root
+    DB_PASSWORD=123456
 
-## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+You also need to supply your **Google API Client ID** in order for the google authentication to work properly.
+
+e.g
+
+    GOOGLE_CLIENT_ID=625475223201-dgf0349fsdf934fdst34560.apps.googleusercontent.com
+    
+*NOTE: Your Google API Project must have the Google+ API service enabled. You can follow these [instructions](https://developers.google.com/+/web/signin/#enable_the_google_api).* 
+   
+    
+You might as well optionally update the `APP_NAME` and `APP_URL`.
+
+#### 5.) Setting up the database
+
+Create the necessary table structure by running this command
+
+    php artisan migrate
+    
+
+Since the blog is using Google Sign-in for the authentication and we only want certain people to access the dashboard,
+we need to specifically run the following command while passing the target **email address** which will allow the user to log-in using their google account if their email address matches any of the saved emails in the database which were added using the command below.
+
+    php artisan signin:allow email_address [--role=writer]
+    
+e.g
+
+    php artisan signin:allow johndoe@example.com
+    
+    
+#### 6.) Running the application
+ 
+ To run the application, we need to compile the application's assets atleast once using the command below:
+ 
+    npm run prod
+    
+    
+#### 7.) Start posting
+
+To start posting, you can log-in into the dashboard by going to
+
+    http://localhost/login
+    
+*NOTE: Replace `localhost` with the appropriate domain.*
+
+    
+
+
+
+## Testing
+
+You can test the application with dummy posts using the command below:
+
+    php artisan db:seed
+    
+
+*NOTE: This command will select the first user in the database, so before you start, you need to sign-in atleast once into the dashboard. This command will generate around 10,000 dummy posts for that selected user.*
