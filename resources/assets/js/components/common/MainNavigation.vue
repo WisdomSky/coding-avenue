@@ -6,7 +6,12 @@
     >
         <div class="menu-container">
             <el-row type="flex" class="main-menu" v-if="$route.path !== '/login'">
-                <el-col :span="4" :offset="1">
+                <el-col :span="1" class="text-right" style="line-height: 60px;">
+                    <a href="#" class="text-light" @click.stop.prevent="$router.back()" v-if="!endOfHistory">
+                        <i class="fa fa-arrow-circle-left fa-2x" aria-hidden="true"></i>
+                    </a>
+                </el-col>
+                <el-col :span="4">
                     <router-link :to="{ path: '/'}" class="logo text-decoration-none">
                         {{ $t('site.title') }}
                     </router-link>
@@ -44,10 +49,20 @@
     import { AuthService } from '@services';
 
     export default {
+        data() {
+          return {
+              endOfHistory: true
+          }
+        },
         computed: {
             ...mapGetters([
                 'getAuthUser'
             ])
+        },
+        watch: {
+            '$route.path': function() {
+                this.endOfHistory = window.history.state === null;
+            }
         },
         methods: {
             handleSelect(key, keyPath) {
