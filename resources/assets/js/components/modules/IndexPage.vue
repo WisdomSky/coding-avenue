@@ -96,10 +96,13 @@
                     });
             },
             parseMarkdown(content) {
-                return markdown(this.trimContent(content).split("\n").splice(0,3).join("\n"));
+                return markdown(this.trimContent(content).split("\n").splice(0,3).join("\n"), {
+                    breaks: true,
+                    sanitize: true
+                });
             },
             trimContent(content) {
-                return content.replace(/\n+/g, "\n");
+                return content.replace(/\n{3,}/g, "\n");
             }
         }
 

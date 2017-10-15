@@ -10,7 +10,7 @@
                 </em>
             </small>
 
-            <vue-markdown class="mt3">{{ post.content }}</vue-markdown>
+            <div class="mt3" v-html="markdown"></div>
 
         </el-card>
     </vp-page-container>
@@ -27,6 +27,8 @@
 
 <script>
     import { PostsService } from '@services';
+    import markdown from 'marked';
+
 
     export default {
 
@@ -35,7 +37,14 @@
                 post: null
             }
         },
-
+        computed: {
+          markdown() {
+                return markdown(this.post.content, {
+                    breaks: true,
+                    sanitize: true
+                });
+            }
+        },
         mounted() {
             PostsService.get(this.$route.params.slug)
                 .subscribe((post) => {
