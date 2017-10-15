@@ -52,7 +52,7 @@ export default class extends Service {
         }
     }
 
-    del(post_id) {
+    delete(post_id) {
 
         if (Array.isArray(post_id)) {
             return Observable
