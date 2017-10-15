@@ -26,7 +26,8 @@ class StorePost extends FormRequest
     {
         return [
             'title' => 'required|unique:posts|max:180',
-            'slug' => 'sometimes|unique:posts|max:180',
+            'slug' => 'sometimes|unique:posts|max:180|slug',
+            'content' => 'sometimes|required'
         ];
     }
 }

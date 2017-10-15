@@ -198,7 +198,7 @@
                     type: 'error'
                 }).then(() => {
                     this.loading = true;
-                    PostsService.del(index).subscribe(() => {
+                    PostsService.delete(index).subscribe(() => {
                         this.load();
                     });
                 });

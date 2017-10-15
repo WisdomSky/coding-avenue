@@ -42,7 +42,25 @@ class PostController extends Controller
      */
     public function store(StorePost $request)
     {
-        //
+
+        $post = new Post();
+
+        $post->fill($request->all());
+
+        $post->author()->associate(Auth::user());
+
+        if ($post->save()) {
+            return response()->json([
+                'code' => 'ok',
+                'message' => 'Create successful.',
+                'post' => $post
+            ]);
+        }
+
+        return response()->json([
+            'code' => 'failed',
+            'message' => 'Create failed.'
+        ], 500);
     }
 
     /**

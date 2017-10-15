@@ -22,6 +22,13 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+
+
+        Validator::extend('slug', function($attribute, $value, $parameters, $validator) {
+            return preg_match('/^[a-z0-9]+(?:-[a-z0-9]+)*$/', $value);
+        });
+
+
     }
 
     /**
@@ -31,7 +38,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+
     }
 
 

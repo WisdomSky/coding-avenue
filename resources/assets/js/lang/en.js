@@ -55,7 +55,7 @@ export default {
                 publishPost: 'Publish Post',
                 deletePost: 'Delete Post'
             },
-            noOfPosts: 'You have a total of {total} posts.'
+            noOfPosts: 'You have a total of {total} post(s).'
         }
     },
     error: {

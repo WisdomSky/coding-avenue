@@ -43,7 +43,7 @@ export default class extends Service {
         return Observable
             .of(`posts`)
             .flatMap((url) => Observable.fromPromise(this.$http.post(url, data)))
-            .map(({ data }) => new Post(data));
+            .map(({ data }) => new Post(data.post));
     }
 
 

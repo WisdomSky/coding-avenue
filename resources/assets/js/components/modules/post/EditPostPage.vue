@@ -74,6 +74,7 @@
 <script>
     import { PostsService } from '@services';
     import markdown from 'marked';
+    import slugify from 'slugify'
 
     export default {
 
@@ -104,6 +105,11 @@
             },
             '$route.params.id': function () {
                 this.loadPost();
+            },
+            'form.title': function (title) {
+                if (!this.post) {
+                    this.form.slug = slugify(title);
+                }
             }
         },
         mounted() {
@@ -164,12 +170,17 @@
                 }
 
                 this.loading = true;
-                obs.subscribe(() => {
+                obs.subscribe((post) => {
                     this.$notify.success({
                         title: 'Post Saved',
                         message: 'The post was saved successfully.'
                     });
                     this.loading = false;
+
+                    if (!this.post && post) {
+                        this.$router.replace(`/edit/${post.key}`);
+                    }
+
                 },(error) => {
                     this.$notify.error({
                         title: 'Saving failed',
