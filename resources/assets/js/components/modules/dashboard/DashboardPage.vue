@@ -33,7 +33,7 @@
                         v-loading.body="loading"
                         border
                         row-class-name="post-row"
-                        @row-click="editPost"
+                        @cell-click="editPost"
                         @selection-change="multiSelection"
                         style="width: 100%">
                     <el-table-column
@@ -179,8 +179,10 @@
             multiSelection(selection) {
                 this.selection = selection;
             },
-            editPost(row, e) {
-                this.$router.push(`/edit/${row.key}`);
+            editPost(row, column) {
+                if (column.type !== 'selection') {
+                    this.$router.push(`/edit/${row.key}`);
+                }
             },
             deletePost(index) {
 
@@ -196,7 +198,7 @@
                     type: 'error'
                 }).then(() => {
                     this.loading = true;
-                    PostsService.delete(index).subscribe(() => {
+                    PostsService.del(index).subscribe(() => {
                         this.load();
                     });
                 });

@@ -2,10 +2,11 @@
 
 namespace App\Http\Requests;
 
+use App\Post;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class StorePost extends FormRequest
+class UpdatePost extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +15,10 @@ class StorePost extends FormRequest
      */
     public function authorize()
     {
-        return Auth::user() !== null;
+
+        $post = Post::find($this->segment(3));
+
+        return $post!== null && $post->user_id ==Auth::user()->getKey();
     }
 
     /**
@@ -24,9 +28,12 @@ class StorePost extends FormRequest
      */
     public function rules()
     {
+
+        $post_id = $this->segment(3);
+
         return [
-            'title' => 'required|unique:posts|max:180',
-            'slug' => 'sometimes|unique:posts|max:180',
+            'title' => "sometimes|required|unique:posts,title,{$post_id},post_id|max:180",
+            'slug' => "sometimes|unique:posts,slug,{$post_id},post_id|max:180",
         ];
     }
 }

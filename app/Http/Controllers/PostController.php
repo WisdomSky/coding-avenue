@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePost;
+use App\Http\Requests\UpdatePost;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,14 +34,13 @@ class PostController extends Controller
     }
 
 
-
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param StorePost|Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePost $request)
     {
         //
     }
@@ -54,23 +54,27 @@ class PostController extends Controller
     public function show($id)
     {
 
-        return response()->json(
-            Post::where(is_int($id) ? 'post_id' : 'slug', $id)->with('author')->first()
-        );
+        $post = Post::where(preg_match("/^\\d+$/", $id) ? 'post_id' : 'slug', $id)->where('type', '!=', Post::TYPE_DELETED)->with('author')->first();
+
+        if ($post) {
+            return response()->json($post);
+        }
+
+        return response('', 500);
     }
 
 
     /**
      * Update the specified resource in storage.
      *
-     * @param StorePost|Request $request
+     * @param StorePost|UpdatePost|Request $request
      * @param Post $post
      * @return \Illuminate\Http\Response
      * @internal param $id
      * @internal param Post $post
      * @internal param int $id
      */
-    public function update(StorePost $request, Post $post)
+    public function update(UpdatePost $request, Post $post)
     {
 
         $post->fill($request->all());
@@ -89,13 +93,13 @@ class PostController extends Controller
         ], 500);
     }
 
-    public function massUpdate(StorePost $request)
+    public function massUpdate(Request $request)
     {
         $ids = $request->input('post_ids', null);
 
         if (is_array($ids)) {
 
-            if (Post::whereIn('post_id', $ids)->update($request->except(['post_ids']))) {
+            if (Post::whereIn('post_id', $ids)->ownedByAuthUser()->update($request->except(['post_ids']))) {
 
                 return response()->json([
                     'code' => 'ok',
@@ -122,7 +126,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        if ($post->fill(['type' => Post::TYPE_DELETED])->save()) {
+        if ($post->user_id == Auth::user()->getKey() && $post->fill(['type' => Post::TYPE_DELETED])->save()) {
             return response()->json([
                 'code' => 'ok',
                 'message' => 'Delete successful.'
@@ -136,13 +140,13 @@ class PostController extends Controller
     }
 
 
-    public function massDestroy(StorePost $request)
+    public function massDestroy(Request $request)
     {
         $ids = explode(',', $request->input('post_ids', null));
 
         if (count($ids)) {
 
-            if (Post::whereIn('post_id', $ids)->update([
+            if (Post::whereIn('post_id', $ids)->ownedByAuthUser()->update([
                 'type' => Post::TYPE_DELETED
             ])) {
 

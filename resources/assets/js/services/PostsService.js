@@ -39,6 +39,14 @@ export default class extends Service {
     }
 
 
+    create(data) {
+        return Observable
+            .of(`posts`)
+            .flatMap((url) => Observable.fromPromise(this.$http.post(url, data)))
+            .map(({ data }) => new Post(data));
+    }
+
+
     update(post_id, data) {
 
         if (Array.isArray(post_id)) {

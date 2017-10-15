@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
 
 class Post extends Authenticatable
 {
@@ -22,6 +23,11 @@ class Post extends Authenticatable
     public function author()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function scopeOwnedByAuthUser($query)
+    {
+        return $query->where('user_id', Auth::user()->getKey());
     }
 
 
